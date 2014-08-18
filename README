@@ -1,0 +1,32 @@
+Given a variable number of playing cards, form the best hand that does not
+exceed 21. The cards are in the set [23456789JQKA], where 2-9 are worth their
+face value, J Q and K are worth 10, and A can be selected to be worth either 1
+and 11. In this scenario, you are only playing with one suit, so there is never
+more than one of each card.
+
+A user should have a form with a single text field and a submit button. Bonus points for nice styling.
+
+Input:
+
+A sequence of characters (Cards) in the above set.
+
+Output:
+
+For each input line of cards, print the highest possible score that does not
+exceed 21.
+
+Example:
+
+STDIN:
+
+296J
+85
+A37
+475A
+
+STDOUT:
+
+21
+13
+21
+20
