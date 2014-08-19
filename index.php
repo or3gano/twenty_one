@@ -38,26 +38,17 @@ if (isset($_GET['cards'])) {
     $cards_array = str_split($_GET['cards']);  // turn card input into an array
     $num_variations = pow(2, count($cards_array));   // calculate the number of combinations possible
     $sum_array = array();
-    
-    // set ace value equal to selected radio value
-    if (isset($_GET['ace'])){
-        switch($_GET['ace']) {
-            case "1":
-                $ace = "1";
-                break;
-            case "11":
-                $ace = "11";
-                break;
-        }
-    }
-    
-    // convert j,q,k,a to numbers
+    $ace = false;
+
+    // convert j,q,k to 10
     for ($i = 0; $i < count($cards_array); $i++) {
         if (($cards_array[$i] == "j") || ($cards_array[$i] == "q") || ($cards_array[$i] == "k")) {    
         $cards_array[$i] = "10";
         }
+        // convert ace to 0
         elseif ($cards_array[$i] == "a") {
-            $cards_array[$i] = $ace;
+            $cards_array[$i] = 0;
+            $ace = true;
         }
     }
     
@@ -66,9 +57,19 @@ if (isset($_GET['cards'])) {
         $combination = 0;
         for ($j = 0; $j < count($cards_array); $j++) {
             if (pow(2, $j) & $i) {
-                $combination = $combination + (int)$cards_array[$j];
+                if(!$ace) {$combination = $combination + (int)$cards_array[$j];}
+                
+                // re-enter ace as combinations of 1 and 11 if it was entered
+                if($ace) {
+                    for($k = 0; $k < 2; $k++) {
+                        if($k = 0) {$combination = $combination + 1;}
+                        if($k = 1) {$combination = $combination + 11; $ace = false;}
+                    }
+                }
             }
+            echo $combination . "<br>";
         }
+
         
         // add the sums to $sum_array if they are less than or equal to 21
         if ($combination <= 21) {
@@ -93,14 +94,6 @@ if (isset($_GET['cards'])) {
 
 </body>
 <script>
-    
-// show radio inputs for Ace if "a" gets entered
-$("#cards").keyup(function () {
-    var cardsArray = document.getElementById('cards').value.split("");
-    if (cardsArray[cardsArray.length-1] == "a") {
-        $("#ace_input").show();
-    }
-})
 
 
 ///     SHOW HIGHEST SUM OF CARDS LESS THAN OR EQUAL TO 21      ///
@@ -109,6 +102,7 @@ $("#js_submit").click(function () {
     var cardsArray = document.getElementById('cards').value.split("");  // turn card input into an array
     var numVariations = Math.pow(2, cardsArray.length);   // calculate the number of combinations possible
     var sumArray = [];
+    var ace = false;
     
     // set ace value equal to selected radio value
     if (document.getElementById("ace_one").checked) {
@@ -118,13 +112,15 @@ $("#js_submit").click(function () {
         var ace = "11";
     }
     
-    // convert j,q,k,a to numbers
+    // convert j,q,k to 10
     for (i = 0; i < cardsArray.length; i++) {
         if ((cardsArray[i] == "j") || (cardsArray[i] == "q") || (cardsArray[i] == "k")) {    
         cardsArray[i] = "10";
         }
+        // convert ace to 0
         else if (cardsArray[i] == "a") {
-            cardsArray[i] = ace;
+            cardsArray[i] = 0;
+            ace = true;
         }
     }
     
@@ -134,6 +130,14 @@ $("#js_submit").click(function () {
         for (j = 0; j < cardsArray.length; j++) {
             if (Math.pow(2, j) & i) {
                 combination = combination + parseInt(cardsArray[j]);
+            }
+        }
+        
+        // re-enter ace as combinations of 1 and 11 if it was entered
+        for(k = 0; k < 2; k++) {
+            if(ace) {
+                if(k = 0) {combination = combination + 1;}
+                if(k = 1) {combination = combination + 11;}
             }
         }
         
