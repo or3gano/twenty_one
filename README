@@ -4,7 +4,7 @@ face value, J Q and K are worth 10, and A can be selected to be worth either 1
 and 11. In this scenario, you are only playing with one suit, so there is never
 more than one of each card.
 
-A user should have a form with a single text field and a submit button. Bonus points for nice styling.
+A user should have a form with a single text field and a submit button.
 
 Input:
 
