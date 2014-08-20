@@ -17,10 +17,8 @@
             Just enter your card combination below and select if you want it to run with PHP or JavaScript.<br>
             Enter cards 2 through ace using this format: 23456789jqka</label>
         <input type="text" id="cards" name="cards" placeholder="Enter cards here">
-        <!--<div id="button_group">-->
-            <button id="php_submit" class="button" type="submit">RUN WITH PHP</button>
-            <button id="js_submit" class="button" type="reset">RUN WITH JAVASCRIPT</button>
-        <!--</div>-->
+        <button id="php_submit" class="button" type="submit">RUN WITH PHP</button>
+        <button id="js_submit" class="button" type="reset">RUN WITH JAVASCRIPT</button>
     </form>
 
 <div id="score">
