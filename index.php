@@ -10,14 +10,18 @@
 </head>
 <body>
 
-<form>
-    <label for="cards">Cards:</label>
-    <input type="text" id="cards" name="cards" placeholder="Enter cards here">
-    <div id="button_group">
-        <button id="php_submit" type="submit">Run with PHP</button>
-        <button id="js_submit" type="reset">Run with JavaScript</button>
-    </div>
-</form>
+<div id="container">
+    <h1>BLACK JACK CARD CALCULATOR</h1>
+    <form>
+        <label for="cards">This calculator will help you determine the highest winning score for a combination of cards in the game of Black Jack.<br>
+            Just enter your card combination below and select if you want it to run with PHP or JavaScript.<br>
+            Enter cards 2 through ace using this format: 23456789jqka</label>
+        <input type="text" id="cards" name="cards" placeholder="Enter cards here">
+        <!--<div id="button_group">-->
+            <button id="php_submit" class="button" type="submit">RUN WITH PHP</button>
+            <button id="js_submit" class="button" type="reset">RUN WITH JAVASCRIPT</button>
+        <!--</div>-->
+    </form>
 
 <div id="score">
 
@@ -41,7 +45,7 @@ if (isset($_GET['cards'])) {
 
     // convert j,q,k to 10
     for ($i = 0; $i < count($cards_array); $i++) {
-        if (($cards_array[$i] == "j") || ($cards_array[$i] == "q") || ($cards_array[$i] == "k")) {    
+        if (($cards_array[$i] == "j") || ($cards_array[$i] == "J") || ($cards_array[$i] == "q") || ($cards_array[$i] == "Q") || ($cards_array[$i] == "k") || ($cards_array[$i] == "K")) {    
         $cards_array[$i] = "10";
         }
         // convert ace to 0
@@ -89,10 +93,11 @@ if (isset($_GET['cards'])) {
     // get the highest number in the $sum_array
     $sum_array = array_filter($sum_array, 'is_int');    // filter out non-interger values
     $num = max($sum_array);
-    echo "The highest winning combination is: " . $num;
+    echo "<p>The highest winning score for " . '"' . $_GET['cards'] . '"' . " is:</p><h1>" . $num . "</h1>";
 
 }
 ?>
+</div>
 </div>
 
 
@@ -116,7 +121,7 @@ $("#js_submit").click(function () {
     
     // convert j,q,k to 10
     for (i = 0; i < cardsArray.length; i++) {
-        if ((cardsArray[i] === "j") || (cardsArray[i] === "q") || (cardsArray[i] === "k")) {
+        if ((cardsArray[i] === "j") || (cardsArray[i] === "J") || (cardsArray[i] === "q") || (cardsArray[i] === "Q") || (cardsArray[i] === "k") || (cardsArray[i] === "K")) {
             cardsArray[i] = "10";
         } else if ((cardsArray[i] === "a") || (cardsArray[i] === "A")) {
             cardsArray[i] = 0;  // convert ace to 0
@@ -162,7 +167,7 @@ $("#js_submit").click(function () {
     // get the highest number in the sumArray and print it in the score div
     sumArray = sumArray.filter(Boolean);    // filter out undefined values
     var num = Math.max.apply(null, sumArray);
-    document.getElementById('score').innerHTML="The highest winning score is " + num;
+    document.getElementById('score').innerHTML="<p>The highest winning score for " + '"' + document.getElementById('cards').value + '"' + " is:</p><h1>" + num + "</h1>";
     
 });
 
